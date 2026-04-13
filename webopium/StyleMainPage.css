@@ -1,0 +1,1646 @@
+/* ------------------------------ ORDEN CSS ------------------------------ */
+/* ------------------------------ MAIN PAGE OPIUM (CSS A PARTE AL SER DISTINTA) ------------------------------ */
+/* ------------------------------ OPIUM BARCELONA MAIN PAGE (CSS ESPECIFICO DE BCN Y GLOBAL) ------------------------------ */
+/* ------------------------------ OPIUM MADRID MAIN PAGE (CSS ESPECIFICO, NO GLOBAL) ------------------------------ */
+/* ------------------------------ OPIUM MARBELLA MAIN PAGE (CSS ESPECIFICO, NO GLOBAL) ------------------------------ */
+/* ------------------------------ OPIUM BARCELONA Y MADRID INFORMACION VIP ------------------------------ */
+/* ------------------------------ OPIUM BARCELONA Y MADRID INFORMACION CLUB ------------------------------ */
+/* ------------------------------ OPIUM BARCELONA Y MADRID CALENDARIO ------------------------------ */
+/* ------------------------------ OPIUM BARCELONA Y MADRID ENTRADAS ------------------------------ */
+/* ------------------------------ OPIUM USUARIO ------------------------------ */
+
+
+/* ------------------------------------------------- CSS OPIUM MAIN PAGE -------------------------------------------------*/
+
+/* ------------------------------ ESTILO BODY GENERAL ------------------------------ */
+.bodymainpage {
+  margin: 0; /* Elimina el margen predeterminado del navegador */
+  padding: 0; /* Elimina el relleno interno predeterminado */
+  background-color: #000000; /* Fondo negro para todo el cuerpo de la web */
+  font-family: Arial, sans-serif; /* Fuente general del sitio */
+  display: flex; /* Activa flexbox para alinear elementos */
+  flex-direction: column; /* Dirección vertical (columnas) */
+  justify-content: flex-start; /* Alineación inicial del eje principal */
+  align-items: center; /* Centrado horizontal */
+  min-height: 100vh; /* Altura mínima del viewport */
+}
+
+/* ------------------------------ CABECERA ------------------------------ */
+.cabecera {
+  position: absolute; /* Posiciona sobre el contenido */
+  top: 0; /* Pegado arriba */
+  left: 0; /* Pegado a la izquierda */
+  width: 100%; /* Ocupa todo el ancho */
+  background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro translúcido */
+  box-shadow: none; /* Sin sombra */
+  padding: 20px 0; /* Espaciado vertical */
+  z-index: 1; /* Por encima del video */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 80%, rgba(0, 0, 0, 0) 100%); /* Degradado negro a transparente */
+}
+
+.logos {
+  display: flex; /* Flexbox para los logos */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  gap: 70px; /* Espacio entre logos */
+}
+
+.logos img {
+  height: 60px; /* Altura estándar */
+  transition: transform 0.3s ease; /* Transición para hover */
+}
+
+.logos img.logomarbella {
+  height: 84px; /* Logo Marbella más grande */
+  margin-top: 20px; /* Espacio arriba */
+}
+
+.logos img:hover {
+  transform: scale(1.1); /* Zoom al pasar el ratón */
+}
+
+/* USUARIO HEADER (POSICIONADO A LA DERECHA) */
+.usuarioheader {
+  position: absolute;
+  right: 50px; /* Aumenta el margen desde el borde derecho (antes 20px) */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 25px; /* Aumenta el espacio entre los botones (antes 15px) */
+}
+
+/* BOTÓN USUARIO Y REGISTRO */
+.usuarioheader a {
+  color: white;             /* Mismo color blanco que el resto */
+  text-decoration: none;    /* Sin subrayado */
+  font-weight: bold;        /* Negrita como los demás */
+  font-size: 18px;          /* Igual que los enlaces normales */
+  transition: transform 0.2s ease, color 0.2s ease; /* Transición como los demás */
+}
+
+/* BOTÓN DE CUENTA (USUARIO LOGUEADO) */
+.botoncuenta {
+  color: white;                 /* Mismo color de texto que el resto */
+  text-decoration: none;        /* Sin subrayado */
+  font-weight: bold;            /* Negrita */
+  font-size: 18px;              /* Mismo tamaño de fuente */
+  transition: transform 0.2s ease, color 0.2s ease; /* Transiciones para hover */
+}
+
+
+
+
+
+
+/* ------------------------------ VIDEO PROMOCIONAL ------------------------------ */
+.divvideopromoMP {
+  position: relative; /* Permite superposición */
+  top: 0; /* Desde el borde superior */
+  left: 0; /* Desde el borde izquierdo */
+  width: 100%; /* Todo el ancho */
+  height: 100vh; /* Altura completa de la pantalla */
+  overflow: hidden; /* Oculta desbordes */
+  z-index: 0; /* Por debajo de la cabecera */
+}
+
+.videoMP {
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
+  border: none; /* Sin borde */
+  object-fit: cover; /* Escala y recorta sin distorsión */
+  position: relative; /* Contexto para pseudoelementos */
+}
+
+.divvideopromoMP::after {
+  content: ''; /* Elemento vacío para pseudoestilo */
+  position: absolute; /* Posicionado sobre el video */
+  bottom: 0; /* En la parte inferior */
+  left: 0; /* Desde la izquierda */
+  width: 100%; /* Ancho total */
+  height: 120px; /* Altura del degradado */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0)); /* Degradado negro hacia arriba */
+  z-index: 1; /* Por encima del video */
+}
+
+/* ------------------------------ TÍTULOS Y EVENTOS DESTACADOS ------------------------------ */
+.divtituloeventosMP {
+  width: 100%; /* Todo el ancho */
+  padding: 40px 0; /* Espaciado vertical */
+  text-align: center; /* Texto centrado */
+}
+
+.textoh2MP {
+  font-size: 36px; /* Tamaño grande */
+  font-weight: bold; /* Negrita */
+  color: #fff; /* Blanco */
+  text-align: center; /* Centrado */
+}
+
+.textoh4MP {
+  color: #fff; /* Blanco */
+  text-align: center; /* Centrado */
+}
+
+.textoh5MP {
+  color: white; /* Blanco */
+  font-weight: bold; /* Negrita */
+  font-size: 16px; /* Tamaño medio */
+  margin: 0; /* Sin margen */
+}
+
+/* ------------------------------ CUADROS EVENTOS ------------------------------ */
+.diveventosMP {
+  width: 100%; /* Todo el ancho */
+  max-width: 95%; /* Hasta el 95% del contenedor */
+  display: flex; /* Flexbox */
+  justify-content: space-between; /* Espacio entre cuadros */
+  align-items: stretch; /* Estirar altura */
+  padding: 15px 60px; /* Espaciado interior */
+  box-sizing: border-box; /* Incluye padding en ancho total */
+  gap: 40px; /* Espacio entre cuadros */
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+.cuadroseventosMP {
+  flex: 1; /* Ocupa espacio proporcional */
+  background-color: #333333; /* Fondo gris oscuro */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 25px 20px; /* Espaciado interno */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrado */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Animación en hover */
+}
+
+.cuadroseventosMP:hover {
+  transform: scale(1.05); /* Zoom */
+  background-color: #4B4B4B; /* Cambio de color */
+}
+
+.flyerseventosMP {
+  width: 100%; /* Ocupa todo el ancho */
+  height: 400px; /* Altura fija */
+  background-size: cover; /* Escalado completo */
+  background-position: center; /* Centrado */
+  border-radius: 30px; /* Bordes redondeados */
+  margin-bottom: 25px; /* Espacio debajo */
+  transition: transform 0.3s ease; /* Animación suave */
+}
+
+.flyerseventosMP:hover {
+  transform: scale(1.05); /* Zoom al pasar el ratón */
+}
+
+.textoeventoMP {
+  font-size: 18px; /* Tamaño medio */
+  font-weight: bold; /* Negrita */
+}
+
+/* ------------------------------ TÍTULO SOCIAL ------------------------------ */
+.divtitulosocialMP {
+  width: 100%; /* Todo el ancho */
+  text-align: center; /* Centrado */
+}
+
+/* ------------------------------ CUADROS SOCIAL ------------------------------ */
+.divsocialMP {
+  display: flex; /* Flexbox vertical */
+  flex-direction: column; /* Dirección columna */
+  align-items: center; /* Centrado horizontal */
+  gap: 40px; /* Espacio entre filas */
+  width: 100%; /* Todo el ancho */
+  max-width: 95%; /* Máximo del 95% */
+  margin: 0 auto 5px auto; /* Centrado horizontal y margen inferior */
+  padding: 15px 60px; /* Espaciado interior */
+  box-sizing: border-box; /* Incluye padding en medidas */
+}
+
+.filas-socialMP {
+  display: flex; /* Filas horizontales */
+  justify-content: space-between; /* Espacio uniforme entre cuadros */
+  gap: 20px; /* Espacio entre cuadros */
+  width: 100%; /* Todo el ancho */
+}
+
+.cuadros-socialMP {
+  flex: 1; /* Ocupa espacio proporcional */
+  background-color: #333333; /* Fondo oscuro */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 20px 20px; /* Espaciado interior */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Negrita */
+  text-align: center; /* Centrado */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Animación suave */
+  max-width: 19%; /* Para que entren 5 cuadros */
+  box-sizing: border-box; /* Incluye padding */
+}
+
+.cuadros-socialMP:hover {
+  transform: scale(1.05); /* Zoom */
+  background-color: #4B4B4B; /* Cambio de color */
+}
+
+.flyers-socialMP {
+  width: 100%; /* Todo el ancho */
+  height: 280px; /* Altura fija */
+  background-size: cover; /* Cubrir */
+  background-position: center; /* Centrado */
+  border-radius: 10px; /* Bordes redondeados */
+  transition: transform 0.3s ease; /* Suavidad al pasar ratón */
+}
+
+/* ------------------------------ INSTAGRAM ------------------------------ */
+.promoig {
+  display: flex; /* Mostrar elementos en fila */
+  align-items: center; /* Centrado vertical */
+  gap: 10px; /* Separación entre elementos */
+}
+
+.divcuadroig {
+  background-color: white; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 5px; /* Espaciado interior */
+  display: flex; /* Contenedor flex */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  width: 25px; /* Ancho fijo */
+  height: 25px; /* Alto fijo */
+}
+
+.logoig {
+  width: 25px; /* Ancho logo */
+  height: 25px; /* Alto logo */
+}
+
+/* ------------------------------ FOOTER ------------------------------ */
+.divfooter {
+  width: 90%; /* Ancho relativo */
+  margin: 40px auto 20px auto; /* Espaciado exterior */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 30px; /* Relleno interno */
+  display: flex; /* Contenedor flexible */
+  justify-content: space-between; /* Separación entre secciones */
+  align-items: flex-start; /* Alineación arriba */
+  flex-wrap: wrap; /* Permite salto de línea */
+  color: white; /* Texto blanco */
+  font-family: Arial, sans-serif; /* Fuente estándar */
+}
+
+.footer-main {
+  background-color: #333333; /* Fondo para página principal */
+}
+
+.footer-barcelona {
+  background-color: #2A0052; /* Fondo para Barcelona */
+}
+
+.footer-madrid {
+  background-color: #000099; /* Fondo para Madrid */
+}
+
+.footer-marbella {
+  background-color: #00D1D1; /* Fondo para Marbella */
+}
+
+.seccionesfooter {
+  flex: 1; /* Mismo ancho */
+  text-align: center; /* Texto centrado */
+}
+
+.titulosfooter {
+  font-weight: bold; /* Negrita */
+  color: white; /* Color blanco */
+  margin-bottom: 10px; /* Espaciado inferior */
+  font-size: 20px; /* Tamaño texto */
+}
+
+.cuadriculaiconosfooter {
+  display: grid; /* Cuadrícula */
+  grid-template-columns: repeat(2, auto); /* Dos columnas */
+  gap: 15px; /* Espacio entre ítems */
+  justify-content: center; /* Centrado horizontal */
+}
+
+.logotiktok {
+  width: 45px; /* Tamaño Logo TikTok */
+  height: 45px;
+}
+
+.logospoty {
+  width: 37px; /* Tamaño Logo Spotify */
+  height: 37px;
+}
+
+.logofacebook {
+  width: 27px; /* Tamaño Logo Facebook */
+  height: 27px;
+}
+
+/* ------------------------------------------------- CSS FOOTER -------------------------------------------------*/
+
+/* ------------------------------------------------- CSS OPIUM MAIN PAGE -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM BARCELONA MP -------------------------------------------------*/
+
+/* ------------------------------------------------- CSS HEADER BARCELONA -------------------------------------------------*/
+
+/* HEADER BARCELONA */
+.header-barcelona {
+  width: 92%; /* El header ocupa el 92% del contenedor principal */
+  margin: 30px auto 0 auto; /* Márgenes superior de 30px, centrado horizontal */
+  background-color: #2A0052; /* Fondo morado oscuro */
+  border-radius: 10px; /* Bordes redondeados de 10px */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa para darle profundidad */
+  padding: 35px 40px; /* Espaciado interior de 35px arriba/abajo y 40px izquierda/derecha */
+  display: flex; /* Usa flexbox para distribuir los elementos dentro del header */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  gap: 60px; /* Espacio de 60px entre los elementos dentro del header */
+  position: relative; /* Posicionamiento relativo para poder usar elementos posicionados absolutamente dentro de él */
+}
+
+/* LOGO O - POSICIONADO A LA IZQUIERDA */
+.logoO {
+  position: absolute; /* Se posiciona de forma absoluta dentro del header */
+  left: 20px; /* Se ubica a 20px desde el borde izquierdo */
+}
+
+/* LOGO O IMG */
+.logoO img {
+  height: 80px; /* Tamaño de la imagen (80px de altura) */
+  transition: transform 0.2s ease; /* Transición suave al aplicar transformaciones */
+}
+
+/* LOGO O EFECTO (ESCALA AL PASAR EL RATÓN) */
+.logoO img:hover {
+  transform: scale(1.1); /* Aumenta el tamaño de la imagen al pasar el ratón */
+}
+
+/* NAV IZQUIERDA Y DERECHA (REDIRECCIONES) */
+.cabeceraizqbcn,
+.cabeceraderbcn {
+  display: flex; /* Usa flexbox para distribuir los enlaces */
+  gap: 20px; /* Espacio de 20px entre los enlaces */
+}
+
+/* NAV CENTRO (LOGO) */
+.cabeceracentrobcn {
+  display: flex; /* Flexbox para centrar los elementos */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
+/* NAV IZQUIERDA Y DERECHA (TEXTO REDIRECCIONES) */
+.cabeceraizqbcn a,
+.cabeceraderbcn a {
+  color: white; /* Color de texto blanco */
+  text-decoration: none; /* Elimina subrayado de los enlaces */
+  font-weight: bold; /* Pone los enlaces en negrita */
+  font-size: 18px; /* Tamaño de fuente de 18px */
+  transition: transform 0.2s ease, color 0.2s ease; /* Transición para el efecto hover */
+}
+
+/* NAV IZQUIERDA Y DERECHA (EFECTOS REDIRECCIONES) */
+.cabeceraizqbcn a:hover,
+.cabeceraderbcn a:hover {
+  transform: scale(1.05); /* Efecto de aumentar el tamaño de los enlaces al pasar el ratón */
+  color: #d4aaff; /* Cambia el color del texto a morado claro al hacer hover */
+}
+
+/* LOGO CENTRAL */
+.logo-barcelona {
+  height: 60px; /* Tamaño del logo central (60px de altura) */
+  transition: transform 0.2s ease; /* Transición suave al aplicar transformaciones */
+}
+
+/* LOGO CENTRAL (EFECTO) */
+.logo-barcelona:hover {
+  transform: scale(1.1); /* Aumenta el tamaño del logo central al pasar el ratón */
+}
+
+/* ------------------------------------------------- VIDEOS PROMO CLUBS -------------------------------------------------*/
+/* CSS DE BCN, MADRID Y MARBELLA DE LOS VIDEOS DEL CLUB (CSS GLOBAL) */
+
+/* CONTENEDOR DEL VIDEO PROMO */
+.divvideopromo {
+  width: 94%; /* El contenedor ocupa el 94% del ancho */
+  margin: 30px auto 0 auto; /* Márgenes para separar el contenedor del header */
+  background-color: #2A0052; /* Fondo morado */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa para darle profundidad */
+  padding: 20px; /* Espaciado interior */
+  display: flex; /* Flexbox para centrar el video */
+  justify-content: center; /* Centra el video horizontalmente */
+  align-items: center; /* Centra el video verticalmente */
+}
+
+/* VIDEO PROMO */
+.videopromo {
+  width: 100%; /* El video ocupa el 100% del contenedor */
+  max-height: 100%; /* Ajusta la altura proporcionalmente */
+  border-radius: 8px; /* Bordes redondeados */
+  display: block; /* Bloque para ajustar el tamaño */
+}
+
+/* TEXTO MEDIO VIDEO */
+.textovideopromo {
+  position: absolute; /* Posiciona el texto de forma absoluta sobre el video */
+  color: white; /* Texto blanco */
+  font-size: 45px; /* Tamaño de la fuente */
+  font-weight: bold; /* Texto en negrita */
+  text-align: center; /* Centra el texto */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  text-shadow: 0 0 30px rgba(0, 0, 0, 2); /* Sombra para resaltar el texto sobre el video */
+}
+
+/* COLORES FONDO POR CIUDAD */
+.colorfondomarbella {
+  background-color: #00D1D1; /* Fondo turquesa para Marbella */
+}
+
+.colorfondomadrid {
+  background-color: #000099; /* Fondo azul para Madrid */
+}
+
+.colorfondobarcelona {
+  background-color: #2A0052; /* Fondo morado para Barcelona */
+}
+
+/* COLORES LETRAS POR CIUDAD */
+.colorletramarbella {
+  color: #00D1D1; /* Color de texto turquesa para Marbella */
+}
+
+.colorletramadrid {
+  color: #000099; /* Color de texto azul para Madrid */
+}
+
+.colorletrabarcelona {
+  color: #2A0052; /* Color de texto morado para Barcelona */
+}
+
+/* ------------------------------------------------- TITULOS PROXIMOS EVENTOS Y MAS ------------------------------------------------- */
+
+/* ESTILO DIV "TITULOS" */
+.divtitulos {
+  width: 25%; /* El contenedor de los títulos ocupa el 25% */
+  margin: 40px auto 20px auto; /* Espaciado superior e inferior */
+  padding: 10px; /* Espaciado interior */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa */
+  text-align: center; /* Centra el texto */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* ESTILO H2 */
+.textoh2bcn {
+  font-size: 32px; /* Tamaño grande para los títulos */
+  font-weight: bold; /* Texto en negrita */
+  color: #ffffff; /* Color blanco */
+  margin: 0; /* Elimina el margen por defecto */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* ESTILO H3 */
+.textoh3bcn {
+  font-size: 23px; /* Tamaño mediano para subtítulos */
+  font-weight: bold; /* Texto en negrita */
+  color: #2A0052; /* Color morado */
+  margin: 0; /* Elimina el margen por defecto */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  text-align: center; /* Centra el texto */
+}
+
+/* ------------------------------------------------- CUADROS PROXIMOS EVENTOS ------------------------------------------------- */
+
+/* CONTENEDOR CUADROS EVENTOS */
+.diveventos { /* INCLUYE MADRID Y MARBELLA */
+  width: 92%; /* El contenedor ocupa el 92% */
+  max-width: 95%; /* Ajusta el ancho máximo */
+  margin: 0 auto; /* Centra el contenedor */
+  padding: 15px 0; /* Espaciado superior e inferior */
+  display: flex; /* Flexbox para distribuir los cuadros */
+  justify-content: space-between; /* Distribuye los cuadros */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  text-align: center; /* Centra el contenido */
+}
+
+/* CUADROS PARA CADA EVENTO */
+.cuadroseventosbcn { 
+  flex: 1; /* Los cuadros ocupan el mismo tamaño */
+  background-color: #2A0052; /* Fondo morado */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 15px; /* Espaciado interior */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  text-align: center; /* Centra el texto */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición al pasar el ratón */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa */
+  margin: 10px; /* Espacio entre cuadros */
+  display: flex; /* Usa flexbox */
+  flex-direction: column; /* Distribuye los elementos en columna */
+  justify-content: space-between; /* Espaciado entre elementos */
+}
+
+/* EFECTO DEL CUADRO AL PASAR RATÓN */
+.cuadroseventosbcn:hover {
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño del cuadro */
+  background-color: #3C007A; /* Cambia a un morado más claro */
+}
+
+/* FLYERS PROMO */
+.flyerseventos { /* INCLUYE MADRID Y MARBELLA */
+  width: 100%;
+  height: 370px; /* Altura ajustada */
+  background-size: cover; /* Cubre todo el área con la imagen */
+  background-position: center; /* Centra la imagen */
+  border-radius: 30px; /* Bordes redondeados */
+  margin-bottom: 15px; /* Espacio inferior */
+  transition: transform 0.3s ease; /* Efecto de transición */
+}
+
+/* FECHA DEL EVENTO */
+.fechaevento { /* INCLUYE MADRID Y MARBELLA */
+  font-size: 17px; /* Tamaño de fuente ajustado */
+  font-weight: bold; /* Texto en negrita */
+  color: #fff; /* Texto blanco */
+  margin-bottom: 10px; /* Separación entre fecha y flyer */
+}
+
+/* TEXTOS */
+.textoevento { /* INCLUYE MADRID Y MARBELLA */
+  font-size: 18px; /* Tamaño de fuente ajustado */
+  font-weight: bold; /* Texto en negrita */
+  color: #fff; /* Texto blanco */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  margin: 5px 0; /* Espaciado entre párrafos */
+}
+
+/* BOTON ENTRADAS Y VIP */
+.botonentradasbcn {
+  background-color: #fff; /* Fondo blanco */
+  color: #2A0052; /* Texto morado */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 16px; /* Tamaño de fuente ajustado */
+  padding: 10px 20px; /* Espaciado del botón */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+}
+
+.botonentradasbcn:hover {
+  background-color: #2A0052; /* Fondo azul oscuro al hacer hover */
+  color: #fff; /* Texto blanco al hacer hover */
+}
+
+/* ------------------------------------------------- BOTON CALENDARIO COMPLETO ------------------------------------------------- */
+
+/* CUADRO BOTON CALENDARIO */
+/* INCLUYE BCN, MADRID Y MARBELLA */
+.divbotones {
+  text-align: center; /* Centra el botón en el contenedor */
+  margin-top: 20px; /* Espaciado superior entre el botón y otros elementos */
+}
+
+/* BOTÓN VER CALENDARIO COMPLETO */
+.botonesbcn {
+  display: inline-block; /* El botón se comporta como un bloque en línea */
+  background-color: #2A0052; /* Fondo morado */
+  color: #fff; /* Texto en blanco */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 18px; /* Tamaño de fuente */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  padding: 12px 40px; /* Espaciado interior, 12px arriba/abajo, 40px izquierda/derecha */
+  border-radius: 30px; /* Bordes redondeados */
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición para el efecto hover */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa similar al header */
+}
+
+/* BOTÓN VER CALENDARIO COMPLETO (EFECTO) */
+.botonesbcn:hover {
+  background-color: #3C007A; /* Fondo más claro al pasar el ratón */
+  transform: scale(1.05); /* Efecto de aumento de tamaño al hacer hover */
+}
+
+/* ------------------------------------------------- PROMO CLUB Y VIP ------------------------------------------------- */
+
+/* INCLUYE BCN MADRID Y MARBELLA */
+/* CONTENEDOR FONDO CLUB */
+.divpromoclub {
+  width: 65%; /* Ancho del contenedor del club */
+  margin: 30px auto 0 auto; /* Separación superior y centrado horizontal */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra externa para profundidad */
+  display: flex; /* Usa flexbox para centrar el contenido */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+}
+
+/* IMG PROMO CLUB */
+.imgpromoclub {
+  width: 100%; /* La imagen ocupa el 100% del contenedor */
+  max-height: 100%; /* Ajusta la altura proporcionalmente */
+  border-radius: 8px; /* Bordes redondeados */
+  display: block; /* Se comporta como un bloque */
+}
+
+/* ------------------------------------------------- TEXTO PROMO CLUB Y VIP ------------------------------------------------- */
+/* INCLUYE BCN MADRID Y MARBELLA */
+
+/* TEXTO PROMOCION SECCION CLUB */
+.cuadroshundidos {
+    background: #e5e5e5; /* Fondo gris claro */
+    color: #222; /* Texto en color gris oscuro */
+    font-size: 1.1rem; /* Tamaño de fuente ligeramente mayor */
+    line-height: 1.6; /* Altura de línea para mayor legibilidad */
+    padding: 2rem; /* Espaciado interior */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.5); /* Sombra interna más intensa y oscura */
+    width: 65%; /* Ancho del cuadro */
+    margin: 40px auto 40px auto; /* Separación de 40px arriba y abajo, centrado horizontal */
+    text-align: center; /* Centra el texto */
+    font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* ------------------------------------------------- TEXTO DERECHOS RESERVADOS ------------------------------------------------- */
+
+/* TEXTO DERECHOS RESERVADOS */
+.textoderechos {
+  font-weight: bold; /* Texto en negrita */
+  font-size: 16px; /* Tamaño de fuente ajustado */
+  text-align: center; /* Centra el texto */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* ------------------------------------------------- CSS OPIUM BARCELONA MP -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM MADRID MP -------------------------------------------------*/
+
+/* ------------------------------------------------- CSS HEADER MADRID -------------------------------------------------*/
+
+/* HEADER MADRID */
+.header-madrid {
+  width: 92%; /* El ancho del header es del 92% del contenedor padre */
+  margin: 30px auto 0 auto; /* Margen superior de 30px, centrado horizontal */
+  background-color: #000099; /* Fondo azul oscuro */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+  padding: 35px 40px; /* Espaciado interior del header */
+  display: flex; /* Usamos flexbox para organizar los elementos */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  gap: 60px; /* Espacio entre los elementos */
+  position: relative; /* Posicionamiento relativo para los elementos dentro del header */
+}
+
+/* LOGO O - POSICIONADO A LA IZQUIERDA */
+.logoO {
+  position: absolute; /* Posiciona el logo fuera del flujo normal */
+  left: 20px; /* Ubica el logo a la izquierda con 20px de margen */
+}
+
+/* LOGO O IMG */
+.logoO img {
+  height: 80px; /* Altura del logo */
+  transition: transform 0.2s ease; /* Transición suave para el efecto hover */
+}
+.logoO img:hover {
+  transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+}
+
+/* NAV IZQUIERDA Y DERECHA (REDIRECCIONES) */
+.cabeceraizqmad,
+.cabeceradermad {
+  display: flex; /* Usamos flexbox para los elementos de navegación */
+  gap: 20px; /* Espacio entre los enlaces de navegación */
+}
+
+/* NAV CENTRO (LOGO) */
+.cabeceracentromad {
+  display: flex; /* Usamos flexbox para el centro */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+}
+
+/* NAV IZQUIERDA Y DERECHA (TEXTO REDIRECCIONES) */
+.cabeceraizqmad a,
+.cabeceradermad a {
+  color: white; /* Texto blanco */
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  font-weight: bold; /* Enfatiza el texto con negrita */
+  font-size: 18px; /* Tamaño de fuente de 18px */
+  transition: transform 0.2s ease, color 0.2s ease; /* Transición suave para efectos */
+}
+.cabeceraizqmad a:hover,
+.cabeceradermad a:hover {
+  transform: scale(1.05); /* Efecto de zoom en los enlaces al pasar el ratón */
+  color: #99b3ff; /* Cambio de color a un azul claro */
+}
+
+/* LOGO CENTRAL */
+.logo-madrid {
+  height: 60px; /* Altura del logo de Madrid */
+  transition: transform 0.2s ease; /* Transición suave para el efecto hover */
+}
+.logo-madrid:hover {
+  transform: scale(1.1); /* Efecto de zoom en el logo al pasar el ratón */
+}
+
+/* ------------------------------------------------- VIDEO PROMO OPMAD -------------------------------------------------*/
+
+/* CSS EN LA SECCION DE BCN (CSS GLOBAL) */
+
+/* ------------------------------------------------- TITULO PROXIMOS EVENTOS -------------------------------------------------*/
+
+.textoh2mad {
+  font-size: 32px; /* Tamaño de fuente grande para el título */
+  font-weight: bold; /* Texto en negrita */
+  color: #ffffff; /* Texto blanco */
+  margin: 0; /* Elimina el margen */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+.textoh3mad {
+  font-size: 23px; /* Tamaño de fuente ligeramente menor que el h2 */
+  font-weight: bold; /* Texto en negrita */
+  color: #000099; /* Texto azul oscuro */
+  margin: 0; /* Elimina el margen */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  text-align: center; /* Centra el texto */
+}
+
+/* ------------------------------------------------- CUADROS PROXIMOS EVENTOS -------------------------------------------------*/
+/* CSS TAMBIEN EN OPIUM BARCELONA (CSS GLOBAL) */
+
+.cuadroseventosmad {
+  flex: 1; /* El cuadro ocupa el mismo espacio que sus elementos hermanos */
+  background-color: #000099; /* Fondo azul oscuro */
+  border-radius: 30px; /* Bordes redondeados */
+  padding: 15px; /* Espaciado interior */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  text-align: center; /* Centra el texto */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves para el hover */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+  margin: 10px; /* Separación entre los cuadros */
+  display: flex; /* Usamos flexbox para organizar el contenido dentro */
+  flex-direction: column; /* Organiza los elementos en una columna */
+  justify-content: space-between; /* Espacio entre los elementos dentro del cuadro */
+}
+
+.cuadroseventosmad:hover {
+  transform: scale(1.05); /* Efecto de zoom al pasar el ratón */
+  background-color: #0058cc; /* Fondo más claro al hacer hover */
+}
+
+.botonentradasmad {
+  background-color: #fff; /* Fondo blanco */
+  color: #000099; /* Texto azul oscuro */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 16px; /* Tamaño de fuente */
+  padding: 10px 20px; /* Espaciado interior */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer; /* Muestra el cursor de mano al pasar sobre el botón */
+  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+  margin-top: 15px; /* Espaciado superior */
+}
+
+.botonentradasmad:hover {
+  background-color: #000099; /* Fondo azul oscuro al hacer hover */
+  color: #fff; /* Texto blanco al hacer hover */
+}
+
+/* ------------------------------------------------- BOTON CALENDARIO COMPLETO -------------------------------------------------*/
+
+/* CSS TAMBIEN EN OPIUM BARCELONA (CSS GLOBAL) */
+
+.botonesmad {
+  display: inline-block; /* El botón se comporta como un bloque en línea */
+  background-color: #000099; /* Fondo azul oscuro */
+  color: #fff; /* Texto blanco */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 18px; /* Tamaño de fuente */
+  font-family: Arial, sans-serif; /* Fuente Arial */
+  padding: 12px 40px; /* Espaciado interior */
+  border-radius: 30px; /* Bordes redondeados */
+  text-decoration: none; /* Elimina el subrayado */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves para el hover */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+}
+
+.botonesmad:hover {
+  background-color: #0058cc; /* Fondo más claro al hacer hover */
+  transform: scale(1.05); /* Efecto de zoom */
+}
+
+/* ------------------------------------------------- PROMO CLUB Y VIP -------------------------------------------------*/
+
+/* CSS EN OPIUM BARCELONA (CSS GLOBAL) */
+
+/* ------------------------------------------------- TEXTO DERECHOS RESERVADOS MAD -------------------------------------------------*/
+
+/* CSS EN OPIUM BARCELONA (CSS GLOBAL) */
+
+/* ------------------------------------------------- CSS OPIUM MADRID MP -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM MARBELLA MP -------------------------------------------------*/
+
+/* ------------------------------------------------- CSS HEADER MARBELLA -------------------------------------------------*/
+
+/* HEADER MARBELLA */
+.header-marbella {
+  width: 92%; /* Ancho del encabezado al 92% del contenedor padre */
+  margin: 30px auto 0 auto; /* Espaciado superior de 30px y centrado horizontal */
+  background-color: #00D1D1; /* Fondo color verde agua */
+  border-radius: 10px; /* Bordes redondeados de 10px */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+  padding: 35px 40px; /* Espaciado interno (35px arriba y abajo, 40px a los lados) */
+  display: flex; /* Usamos Flexbox para la disposición de los elementos dentro */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Centra los elementos verticalmente */
+  font-family: Arial, sans-serif; /* Fuente Arial o sans-serif */
+  gap: 60px; /* Espaciado entre los elementos de 60px */
+  position: relative; /* Posicionamiento relativo para los elementos hijos */
+}
+
+/* LOGO O - POSICIONADO A LA IZQUIERDA */
+.logoO {
+  position: absolute; /* Posición absoluta dentro del contenedor padre */
+  left: 20px; /* Desplazamiento de 20px desde el borde izquierdo */
+}
+
+/* LOGO O IMG */
+.logoO img {
+  height: 80px; /* Altura de la imagen */
+  transition: transform 0.2s ease; /* Transición suave para el efecto hover */
+}
+.logoO img:hover {
+  transform: scale(1.1); /* Efecto hover que aumenta el tamaño de la imagen al 110% */
+}
+
+/* NAV IZQUIERDA Y DERECHA (REDIRECCIONES) */
+.cabeceraizqmarbella,
+.cabeceradermarbella {
+  display: flex; /* Usamos Flexbox para la disposición horizontal de los enlaces */
+  gap: 20px; /* Espaciado entre los elementos de 20px */
+}
+
+/* NAV CENTRO (LOGO) */
+.cabeceracentromarbella {
+  display: flex; /* Disposición flexible */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+}
+
+/* NAV IZQUIERDA Y DERECHA (TEXTO REDIRECCIONES) */
+.cabeceraizqmarbella a,
+.cabeceradermarbella a {
+  color: white; /* Color blanco para los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  font-weight: bold; /* Fuente en negrita */
+  font-size: 18px; /* Tamaño de fuente de 18px */
+  transition: transform 0.2s ease, color 0.2s ease; /* Transición para el hover */
+}
+.cabeceraizqmarbella a:hover,
+.cabeceradermarbella a:hover {
+  transform: scale(1.05); /* Efecto de aumento al 105% al pasar el ratón */
+  color: #ccfafa; /* Color de los enlaces al pasar el ratón */
+}
+
+/* LOGO CENTRAL */
+.logo-marbella {
+  height: 84px; /* Altura del logo */
+  margin-top: -5px; /* Desplazamiento hacia arriba */
+  margin-bottom: -20px; /* Desplazamiento hacia abajo */
+  transition: transform 0.2s ease; /* Transición para el efecto hover */
+}
+.logo-marbella:hover {
+  transform: scale(1.1); /* Efecto hover que aumenta el tamaño del logo al 110% */
+}
+
+/* ------------------------------------------------- VIDEO PROMO OPMARBELLA -------------------------------------------------*/
+
+/* BODY GRIS */
+.bodys {
+  background-color: #E0E0E0; /* Fondo gris claro para el cuerpo */
+}
+
+/* ------------------------------------------------- TITULO PROXIMOS EVENTOS -------------------------------------------------*/
+
+.textoh2marbella {
+  font-size: 32px; /* Tamaño de fuente de 32px */
+  font-weight: bold; /* Fuente en negrita */
+  color: #ffffff; /* Color blanco */
+  margin: 0; /* Elimina márgenes */
+  font-family: Arial, sans-serif; /* Fuente Arial o sans-serif */
+}
+
+.textoh3marbella {
+  font-size: 23px; /* Tamaño de fuente de 23px */
+  font-weight: bold; /* Fuente en negrita */
+  color: #00D1D1; /* Color verde agua */
+  margin: 0; /* Elimina márgenes */
+  font-family: Arial, sans-serif; /* Fuente Arial o sans-serif */
+  text-align: center; /* Centrado del texto */
+}
+
+/* ------------------------------------------------- CUADROS PROXIMOS EVENTOS -------------------------------------------------*/
+/* CSS TAMBIEN EN OPIUM BARCELONA (CSS GLOBAL) */
+
+.cuadroseventosmarbella {
+  flex: 1; /* Cada cuadro toma un tamaño flexible */
+  background-color: #00D1D1; /* Fondo verde agua */
+  border-radius: 30px; /* Bordes redondeados de 30px */
+  padding: 15px; /* Espaciado interno de 15px */
+  color: #fff; /* Color del texto blanco */
+  font-weight: bold; /* Fuente en negrita */
+  text-align: center; /* Centrado del texto */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición para el hover */
+  font-family: Arial, sans-serif; /* Fuente Arial o sans-serif */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+  margin: 10px; /* Márgenes de 10px */
+  display: flex; /* Flexbox para la disposición de los elementos */
+  flex-direction: column; /* Disposición vertical de los elementos dentro */
+  justify-content: space-between; /* Espacio entre los elementos */
+}
+
+.cuadroseventosmarbella:hover {
+  transform: scale(1.05); /* Aumento al 105% al pasar el ratón */
+  background-color: #66e0e0; /* Fondo de color más claro al pasar el ratón */
+}
+
+/* BOTON ENTRADAS */
+.botonentradasmarbella {
+  background-color: #fff; /* Fondo blanco */
+  color: #00D1D1; /* Color de texto verde agua */
+  font-weight: bold; /* Fuente en negrita */
+  font-size: 16px; /* Tamaño de fuente de 16px */
+  padding: 10px 20px; /* Espaciado interno de 10px arriba y abajo, 20px a los lados */
+  border: none; /* Sin bordes */
+  border-radius: 25px; /* Bordes redondeados de 25px */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+  margin-top: 15px; /* Espaciado superior de 15px */
+}
+
+.botonentradasmarbella:hover {
+  background-color: #00D1D1; /* Fondo verde agua al pasar el ratón */
+  color: #fff; /* Color de texto blanco al pasar el ratón */
+}
+
+/* ------------------------------------------------- BOTON CALENDARIO COMPLETO -------------------------------------------------*/
+
+.botonesmarbella {
+  display: inline-block; /* Hace que el botón sea un bloque en línea */
+  background-color: #00D1D1; /* Fondo verde agua */
+  color: #fff; /* Color de texto blanco */
+  font-weight: bold; /* Fuente en negrita */
+  font-size: 18px; /* Tamaño de fuente de 18px */
+  font-family: Arial, sans-serif; /* Fuente Arial o sans-serif */
+  padding: 12px 40px; /* Espaciado interno de 12px arriba y abajo, 40px a los lados */
+  border-radius: 30px; /* Bordes redondeados de 30px */
+  text-decoration: none; /* Sin subrayado */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Transición suave */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Sombra para dar profundidad */
+}
+
+.botonesmarbella:hover {
+  background-color: #66e0e0; /* Fondo más claro al pasar el ratón */
+  transform: scale(1.05); /* Efecto de aumento al 105% */
+}
+
+/* ------------------------------------------------- PROMO BEACH CLUB -------------------------------------------------*/
+
+/* CSS EN OPIUM BARCELONA (CSS GLOBAL) */
+
+/* ------------------------------------------------- PROMO RESTAURANTE -------------------------------------------------*/
+
+/* CSS EN OPIUM BARCELONA (CSS GLOBAL) */
+
+/* ------------------------------------------------- DERECHOS RESERVADOS -------------------------------------------------*/
+
+/* CSS EN OPIUM BARCELONA (CSS GLOBAL) */
+
+/* ------------------------------------------------- CSS OPIUM MARBELLA MP -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM INFO VIP -------------------------------------------------*/
+
+/* --------------------------------------------- FOTO FONDO HEADER ----------------------------------------------*/
+
+.divfotofondoVIP {
+  position: relative;/* Se posiciona de forma absoluta respecto al contenedor más cercano con position: relative (normalmente el <header>) */
+  top: 0;/* Se alinea arriba del todo */
+  left: 0;/* Se alinea a la izquierda del todo */
+  width: 100%;/* Ocupa todo el ancho de la pantalla */
+  height: 50vh;/* Ocupa el 50% de la altura visible de la ventana del navegador (viewport height) */
+  overflow: hidden;/* Si algo se sale del área, lo oculta (muy útil si se usara una imagen más grande o animaciones) */
+  z-index: 0;/* Se sitúa debajo de otros elementos que tengan un z-index mayor (como los logos) */
+}
+
+.fotofondoVIP {
+  width: 100%;/* La imagen se estira al ancho completo del contenedor */
+  height: 100%;/* Se ajusta a la altura completa del contenedor (en este caso, 50vh) */
+  object-fit: cover;/* Recorta la imagen para cubrir todo el contenedor sin deformarse */
+  display: block;/* Evita espacios en blanco por ser una imagen inline por defecto */
+}
+
+.divfotofondoVIP::after {
+  content: '';/* Necesario para que el pseudo-elemento exista */
+  position: absolute;/* Se posiciona encima de la imagen, dentro del contenedor */
+  bottom: 0;/* Se pega al borde inferior del contenedor */
+  left: 0;/* Alineado a la izquierda */
+  width: 100%;/* Cubre todo el ancho */
+  height: 120px;/* Altura del degradado negro */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));/* Degradado que va de negro opaco (abajo) a transparente (arriba) */
+  z-index: 1;/* Se coloca por encima de la imagen pero por debajo del contenido principal como los logos */
+}
+
+/* --------------------------------------------- PRIMERA SECCION VIP ----------------------------------------------*/
+
+.divpresentacionvip {
+  padding: 60px 20px;
+  text-align: center;
+  color: white;
+  max-width: 1000px;  /* Aumentamos el ancho del contenedor */
+  margin: 0 auto; /* Centra el div */
+}
+
+.divpresentacionvip h1 {
+  font-size: 40px;  /* Tamaño de la fuente en píxeles */
+  margin-bottom: 10px;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+}
+
+.divpresentacionvip h2 {
+  font-size: 28px;  /* Tamaño de la fuente en píxeles */
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+}
+
+.divpresentacionvip p {
+  font-size: 18px;  /* Tamaño de la fuente en píxeles */
+  margin: 0 auto;
+  line-height: 1.5; /* Altura de las líneas */
+  color: #ddd;
+}
+
+/* --------------------------------------------- FOTOS PRIMERA SECCION VIP ----------------------------------------------*/
+
+.divprimerasfotosvip {
+  display: flex; /* Utiliza flexbox para alinear las imágenes en fila */
+  justify-content: space-between; /* Espacio entre las imágenes */
+  gap: 10px; /* Menos espacio entre las imágenes */
+  margin-top: 1px; /* Reduce aún más el espacio superior entre el texto y las imágenes */
+}
+
+.primerasfotosvip {
+  width: 49%; /* Las imágenes ocupan casi la mitad del contenedor */
+  border-radius: 15px; /* Bordes redondeados */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+  height: 500px; /* Aumentar aún más la altura de las imágenes */
+  transition: transform 0.3s ease; /* Transición suave para el zoom */
+}
+
+.primerasfotosvip:hover {
+  transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
+}
+
+/* --------------------------------------------- FOTO SEGUNDA SECCION VIP ----------------------------------------------*/
+
+.divsegundafotovip {
+  display: flex; /* Utiliza flexbox para alinear las imágenes en fila */
+  justify-content: center; /* Centra la imagen dentro del contenedor */
+  margin-top: -20px; /* Reduce aún más el espacio superior entre el texto y la imagen */
+}
+
+.segundafotovip {
+  width: 98%; /* Ocupa casi todo el contenedor, el ancho de las dos imágenes anteriores juntas */
+  height: 500px; /* El mismo tamaño de alto que las imágenes anteriores */
+  border-radius: 15px; /* Bordes redondeados */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+  transition: transform 0.3s ease; /* Transición suave para el zoom */
+}
+
+.segundafotovip:hover {
+  transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
+}
+
+/* --------------------------------------------- MAPA TERCERA SECCION VIP ----------------------------------------------*/
+
+.divtercerafotovip {
+  display: flex; /* Utiliza flexbox para alinear las imágenes en fila */
+  justify-content: center; /* Centra la imagen dentro del contenedor */
+  margin-top: -20px; /* Reduce aún más el espacio superior entre el texto y la imagen */
+  margin-bottom: -30px;
+}
+
+.tercerafotovip {
+  width: 40%; /* Ocupa casi todo el contenedor, el ancho de las dos imágenes anteriores juntas */
+  border-radius: 15px; /* Bordes redondeados */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+  transition: transform 0.3s ease; /* Transición suave para el zoom */
+}
+
+.tercerafotovip:hover {
+  transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
+}
+
+/* --------------------------------------------- BOTON CARTA VIP ----------------------------------------------*/
+
+.botoncartavip {
+  display: inline-block;
+  background-color: #fff; /* Fondo blanco */
+  color: #333; /* Letras negras */
+  font-weight: bold;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  padding: 12px 40px; /* Espaciado dentro del botón */
+  margin-top: -30px;  /* Ajusta el margen superior según necesites */
+  margin-bottom: -5px;  /* Ajusta el margen inferior según necesites */
+
+}
+
+.botoncartavip:hover {
+  background-color: #333; /* Fondo gris oscuro al pasar el ratón */
+  color: #fff; /* Letras blancas al pasar el ratón */
+  transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+}
+
+/* ------------------------------------------------- CSS OPIUM INFO VIP -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM INFO CLUB -------------------------------------------------*/
+
+.divfotosclub {
+  display: flex; /* Utiliza flexbox para alinear las imágenes en fila */
+  justify-content: center; /* Centra las imágenes */
+  gap: 20px; /* Aumentamos el espacio entre las imágenes */
+  margin-top: 20px; /* Espacio superior entre las imágenes */
+  flex-wrap: wrap; /* Permite que las imágenes se ajusten si el tamaño de la pantalla es pequeño */
+  max-width: 80%; /* Las imágenes ocupan el 70% del ancho de la página */
+  margin-left: auto; /* Centra el contenedor */
+  margin-right: auto; /* Centra el contenedor */
+  margin-top: 2px;
+}
+
+.cuadrosfotosclub {
+  position: relative;
+  width: 24%; /* Ajusta la imagen para que quepan 4 imágenes al mismo tamaño */
+  border-radius: 25px; /* Bordes redondeados en todos los lados */
+  overflow: hidden; /* Asegura que todo el contenido esté dentro del borde redondeado */
+  text-align: center; /* Centra el texto debajo de la imagen */
+}
+
+.fotosclub {
+  width: 100%; /* Las imágenes ocupan todo el contenedor */
+  height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+  transition: transform 0.3s ease; /* Transición suave para el zoom */
+  border-radius: 15px; /* Bordes redondeados en las imágenes */
+}
+
+.fotosclub:hover {
+  transform: scale(1.03); /* Efecto de zoom suave al pasar el ratón */
+}
+
+.textosfotosclub {
+  text-align: center; /* Centra el texto */
+  margin-top: 10px; /* Separación entre la imagen y el texto */
+  color: white; /* Cambié el color del texto a blanco */
+  margin-top: 25px;
+}
+
+.textosfotosclub h2 {
+  font-size: 22px;
+  font-weight: 800; /* Grosor de la letra */
+  text-transform: uppercase; /* Mayusculas automaticas */
+  margin: 0;
+}
+
+.textosfotosclub p {
+  font-size: 14px;
+  font-weight: 600; /* Grosor de la letra */
+  margin-top: 5px; /* Margen entre el titulo y el subitutlo */
+  line-height: 1.3; /* Espacio entre lineas */
+  color: #d3d3d3; /* Gris claro para el subtítulo */
+}
+
+/* ------------------------------------------------- CSS OPIUM INFO CLUB -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS OPIUM FORM REGISTRO Y BOTONES DE REGISTRO... -------------------------------------------------*/
+/* ------------------------------------------------- CSS OPIUM FORM REGISTRO -------------------------------------------------*/
+
+.divformregistro {
+  display: flex;
+  justify-content: center;
+  margin: 5px 0 40px 0;
+}
+
+.formregistro {
+  background-color: #2b2b2b;
+  padding: 40px;
+  border-radius: 15px;
+  width: 95%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formregistro label {
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  text-align: center;
+}
+
+.formregistro input {
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background-color: #e6e6e6;
+  font-size: 15px;
+}
+
+.formregistro input::placeholder {
+  color: #a9a9a9;
+  font-style: italic;
+}
+
+.formregistro button {
+  margin-top: 10px;
+  padding: 16px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: background 0.3s, color 0.3s;
+}
+
+.formregistro button:hover {
+  background-color: #cccccc;
+  color: white;
+}
+
+/* CSS PARA LAS FILAS */
+.formfilas {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* CSS PARA LOS CUADROS DE LAS FILAS QUE TIENEN 2 */
+.cuadrosform2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CSS PARA EL CUADRO DE LA ULTIMA FILA, QUE TIENE 1 */
+.cuadroform1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------------------------------------------------- CSS OPIUM BOTONES REGISTRO Y CUENTA (SI HACEN FALTA) -------------------------------------------------*/
+
+/* ------------------------------ CSS EN CABECERA DE OPIUM MAIN PAGE ------------------------------ */
+
+/* ------------------------------------------------- SS OPIUM BOTONES REGISTRO Y CUENTA (SI HACEN FALTA) -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS CALENDARIO (BCN Y MAD) -------------------------------------------------*/
+/* ------------------------------ CUADROS EVENTOS CALENDARIO ------------------------------ */
+
+.diveventosCAL {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 15px 60px;
+  box-sizing: border-box;
+  gap: 20px; /* Menos espacio entre cuadros */
+  margin-bottom: 20px;
+}
+
+.cuadroseventosCAL {
+  width: 11%; /* Ancho de los cuadros */
+  background-color: #333333;
+  border-radius: 15px;
+  padding: 20px 20px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cuadroseventosCAL:hover {
+  transform: scale(1.05);
+  background-color: #4B4B4B;
+}
+
+.flyerseventosCAL {
+  width: 100%;
+  height: 250px; /* Reducido para que no se vea tan comprimido en cuadros más anchos */
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease;
+}
+
+.flyerseventosCAL:hover {
+  transform: scale(1.05);
+}
+
+.textoeventoCAL {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.botonentradasCAL {
+  background-color: #888888;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.botonentradasCAL:hover {
+  background-color: #dddddd;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+/* ------------------------------------------------- CSS CALENDARIO (BCN Y MAD) -------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS ENTRADAS (BCN Y MAD) -------------------------------------------------*/
+
+/* -------------------- CALENDARIO DE COMPRA - ENTRADAS -------------------- */
+.calendarioentradas {
+  background-color: #2b2b2b;
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 800px;
+  color: white;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.headercalendario {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #1a1a1a;
+  padding: 12px 20px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.dias-semana {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.dias-mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.dia-solo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #e6e6e6;
+  color: black;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background 0.3s, color 0.3s;
+  margin: auto;
+  text-decoration: none;
+}
+
+.dia-enlace {
+  text-decoration: none;
+  display: block;
+}
+
+.dia-enlace:hover .dia-opium {
+  background-color: white;
+  color: #2b2b2b;
+}
+
+.dia-vacio {
+  visibility: hidden;
+}
+
+/* -------------------- EVENTO SELECCIONADO -------------------- */
+.diveventosENT {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px; /* antes 40px */
+  box-sizing: border-box;
+}
+
+.cuadroseventosENT {
+  width: 100%;
+  max-width: 400px;
+  background-color: #333333;
+  border-radius: 20px;
+  padding: 30px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.cuadroseventosENT:hover {
+  transform: scale(1.02);
+  background-color: #4B4B4B;
+}
+
+.flyerseventosENT {
+  width: 100%;
+  min-height: 500px;
+  background-size: contain;
+  background-position: center;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+
+.textoeventoENT {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  color: white;
+}
+
+.botonentradasENT {
+  background-color: #888888;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 12px 35px;
+  border: none;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.botonentradasENT:hover {
+  background-color: #dddddd;
+  color: #000000;
+  transform: scale(1.05);
+}
+
+.cuadroentradaGRIS {
+  background-color: #3a3a3a;
+  border-radius: 12px;
+  padding: 15px 25px;
+  margin: 10px auto;
+  width: 70%; /* antes 90% */
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+/* ------------------------------------------------- CSS ENTRADAS (BCN Y MAD) -------------------------------------------------*/
+
+.reserva-box {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 50px auto;
+  max-width: 500px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.linea-reserva {
+  border: none;
+  border-top: 2px solid #ccc;
+  margin: 20px 0;
+  width: 80%;
+}
+
+
+
+
+
+
+
+
+/* ------------------------------------------------- CSS MENU USUARIO -------------------------------------------------*/
