@@ -1,16 +1,38 @@
 <?php
-// Inicia la sesión actual 
+/**
+ * MEJORA DE SEGURIDAD: CIERRE DE SESIÓN INTEGRAL
+ * No solo vaciamos los datos en el servidor, sino que eliminamos el rastro en el cliente.
+ */
+
 session_start();
 
-// Elimina todas las variables de sesión
-session_unset();
+// 1. Elimina todas las variables de sesión del array $_SESSION
+$_SESSION = array();
 
-// Destruye la sesión actual
+// 2. IMPORTANTE: Si se desea destruir la sesión completamente, también hay que borrar
+// la cookie de sesión en el navegador. Si no, el ID de sesión podría ser reutilizado.
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(
+        session_name(), 
+        '', 
+        time() - 42000, // Ponemos una fecha de expiración en el pasado para que el navegador la borre
+        $params["path"], 
+        $params["domain"],
+        $params["secure"], 
+        $params["httponly"]
+    );
+}
+
+// 3. Destruye la información de la sesión en el servidor
 session_destroy();
 
-// Redirige al usuario a la página principal después de cerrar sesión
-header("Location: ../OpiumMainPage/OpiumMainPage.php");
+/**
+ * CAPA EXTRA: Redirección limpia.
+ * Usamos un parámetro opcional para que la página de destino sepa que se ha cerrado sesión correctamente.
+ */
+header("Location: ../OpiumMainPage/OpiumMainPage.php?logout=1");
 
-// Finaliza el script para asegurarse de que no se ejecute ningún código después de la redirección
+// 4. Finaliza el script de forma segura
 exit;
 ?>

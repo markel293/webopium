@@ -1,68 +1,86 @@
 <?php
+/**
+ * SEGURIDAD MASTER: PROCESO DE COMPRA TRANSACCIONAL
+ * 1. Uso de Prepared Statements para evitar SQL Injection.
+ * 2. Transacciones SQL (Commit/Rollback) para asegurar la integridad.
+ * 3. Verificación de stock REAL antes de restar.
+ */
 
-// Conexión a la base de datos
 include 'conexion.php';
-require_once '../auth/fpdf/fpdf.php';
-require_once '../auth/phpqrcode/qrlib.php';
+session_start();
 
-// Obtener el día del evento desde la URL (GET)
+// El día del evento para la redirección
 $dia = isset($_POST['dia']) ? (int)$_POST['dia'] : 0;
 
-// Verifica si el formulario se ha enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Recoge y limpia los datos del formulario
-	$idlot = isset($_POST['id_lot']) ? (int)$_POST['id_lot'] : 0;
+    // 1. Recogida y limpieza estricta
+    $idlot = isset($_POST['id_lot']) ? (int)$_POST['id_lot'] : 0;
     $correo = strtolower(trim($_POST['email']));
-    $titular = trim($_POST['titular_tarjeta']);
-    $tarjeta = trim($_POST['numero_tarjeta']);
-    $expiracion = trim($_POST['fecha_expiracion']);
-    $codigo = trim($_POST['codigo_seguridad']);
     
+    // NOTA: Los datos de la tarjeta NO se guardan en BD (Cumplimiento PCI-DSS)
+    // En el futuro, aquí iría el token de la pasarela de pago.
+    $titular = trim($_POST['titular_tarjeta']);
 
-    // Validación básica
-    if (empty($correo) || $idlot === 0) {
-        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&error=Por favor completa todos los campos.#formulario");
+    // 2. Validación de campos vacíos
+    if (empty($correo) || $idlot === 0 || empty($titular)) {
+        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&error=Datos incompletos.#formulario");
         exit;
     }
 
-    // Verificar si el correo electrónico existe en la base de datos
-    $consulta_correo = "SELECT id_client FROM client WHERE LOWER(email) = '$correo' LIMIT 1";
-    $resultado_correo = mysqli_query($conn, $consulta_correo);
+    // 3. Iniciar Transacción (Para que no haya fallos parciales)
+    $conn->begin_transaction();
 
-    if (!$resultado_correo || mysqli_num_rows($resultado_correo) === 0) {
-        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&error=El correo introducido no está registrado, por favor regístrate antes de comprar cualquier entrada.#formulario");
+    try {
+        // A. Verificar si el correo existe (Consulta Preparada)
+        $stmt_c = $conn->prepare("SELECT id_client FROM client WHERE email = ? LIMIT 1");
+        $stmt_c->bind_param("s", $correo);
+        $stmt_c->execute();
+        $res_c = $stmt_c->get_result();
+
+        if ($res_c->num_rows === 0) {
+            throw new Exception("El correo no está registrado.");
+        }
+        $idcliente = $res_c->fetch_assoc()['id_client'];
+
+        // B. Verificar Stock y Precio (FOR UPDATE bloquea la fila para evitar compras simultáneas sin stock)
+        $stmt_s = $conn->prepare("SELECT stock_disponible, preu FROM lot_entrada WHERE id_lot = ? FOR UPDATE");
+        $stmt_s->bind_param("i", $idlot);
+        $stmt_s->execute();
+        $res_s = $stmt_s->get_result();
+
+        if ($res_s->num_rows === 0) {
+            throw new Exception("Lote no encontrado.");
+        }
+
+        $lote = $res_s->fetch_assoc();
+        if ($lote['stock_disponible'] <= 0) {
+            throw new Exception("Lo sentimos, no quedan entradas disponibles.");
+        }
+
+        // C. Reducir Stock
+        $stmt_u = $conn->prepare("UPDATE lot_entrada SET stock_disponible = stock_disponible - 1 WHERE id_lot = ?");
+        $stmt_u->bind_param("i", $idlot);
+        $stmt_u->execute();
+
+        // D. Registrar la compra
+        $stmt_i = $conn->prepare("INSERT INTO entrada_comprada (id_client, id_lot, data_compra, estat_entrada) VALUES (?, ?, NOW(), 'no_utilitzada')");
+        $stmt_i->bind_param("ii", $idcliente, $idlot);
+        $stmt_i->execute();
+
+        // Si todo ha ido bien, confirmamos los cambios en la BD
+        $conn->commit();
+        
+        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&ok=Compra realizada con éxito. Ya puedes verla en tu cuenta.#formulario");
+        exit;
+
+    } catch (Exception $e) {
+        // Si algo falla, deshacemos todo lo anterior (no se resta stock ni se crea entrada)
+        $conn->rollback();
+        $msg = urlencode($e->getMessage());
+        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&error=$msg.#formulario");
         exit;
     }
-
-    $cliente = mysqli_fetch_assoc($resultado_correo);
-    $idcliente = $cliente['id_client'];
-
-    // Obtener id_event y precio desde el lote seleccionado
-    $consulta_entrada = "SELECT id_event, preu FROM lot_entrada WHERE id_lot = $idlot LIMIT 1";
-    $resultado_entrada = mysqli_query($conn, $consulta_entrada);
-
-    if (!$resultado_entrada || mysqli_num_rows($resultado_entrada) === 0) {
-        header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&error=Lote de entrada no encontrado.#formulario");
-        exit;
-    }
-
-    $entrada = mysqli_fetch_assoc($resultado_entrada);
-    $idevento = $entrada['id_event'];
-    $precio = $entrada['preu'];
-
-    // Reducir el stock sin verificar disponibilidad
-    $actualizar_stock = "UPDATE lot_entrada SET stock_disponible = stock_disponible - 1 WHERE id_lot = $idlot";
-    mysqli_query($conn, $actualizar_stock);
-
-    // Registrar la compra
-    $insertar = "INSERT INTO entrada_comprada (id_client, id_lot, data_compra, estat_entrada) 
-                 VALUES ($idcliente, $idlot, NOW(), 'no_utilitzada')";
-    mysqli_query($conn, $insertar);
-
-    // Redirigir con éxito
-    header("Location: ../OpiumBarcelona/entradasbcn.php?dia=$dia&ok=Compra realizada con éxito.#formulario");
-    exit;
 
 } else {
     header("Location: ../OpiumBarcelona/entradasbcn.php");
