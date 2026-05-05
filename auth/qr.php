@@ -1,13 +1,17 @@
 <?php
+// 1. Iniciem la sessió per verificar qui demana l'entrada
 session_start();
 include '../auth/conexion.php';
 
+// CONTROL D'ACCÉS: Si algú intenta entrar a aquesta adreça sense estar loguejat,
+// el sistema el fa fora immediatament. Així evitem que es vegin tiquets sense permís.
 if (!isset($_SESSION['logued']) || $_SESSION['logued'] !== true) {
     header("Location: ../auth/forminiciosesion.php");
     exit;
 }
 
-// Recogemos la información enviada por POST desde micuenta.php
+// 2. RECOLLIDA DE DADES: Agafem la informació que ens arriba des de 'micuenta.php'.
+// Fem servir 'htmlspecialchars' per netejar el text i evitar que algú intenti injectar codi maliciós.
 $nom_session = $_SESSION['nom'];
 $club_name   = isset($_POST['club_name']) ? htmlspecialchars($_POST['club_name']) : 'OPIUM CLUB';
 $nom_event   = isset($_POST['nom_event']) ? htmlspecialchars($_POST['nom_event']) : 'Evento Especial';
@@ -15,11 +19,16 @@ $data_event  = isset($_POST['data_event']) ? htmlspecialchars($_POST['data_event
 $preu        = isset($_POST['preu']) ? htmlspecialchars($_POST['preu']) : '0.00';
 $nom_lot     = isset($_POST['nom_lot']) ? htmlspecialchars($_POST['nom_lot']) : 'Entrada General';
 
-// Generamos un ID de ticket único
+// 3. GENERACIÓ D'IDENTIFICADOR ÚNIC (Ticket ID):
+// Creem un codi de tiquet únic per a cada entrada barrejant les dades de l'usuari i l'esdeveniment.
+// Fem servir 'md5' per triturar la informació i treure un codi de 8 lletres/números difícil de falsificar.
 $ticket_id = "OP-" . strtoupper(substr(md5($nom_session . $nom_event . $data_event), 0, 8));
 
-// URL del QR
+// 4. CREACIÓ DEL CONTINGUT DEL QR:
+// Preparem el text que anirà dins del QR (ID del tiquet, club i esdeveniment).
 $qr_content = "TICKET:" . $ticket_id . "|CLUB:" . $club_name . "|EVENT:" . $nom_event;
+
+// Cridem a un servei extern segur (QuickChart) perquè ens dibuixi la imatge del codi QR.
 $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300&dark=000000&light=ffffff&ecLevel=Q";
 ?>
 
@@ -33,11 +42,12 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
     <link rel="icon" href="../img/logogeneral.png" type="image/png" />
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+	<style>
+        /* CONFIGURACIÓ VISUAL (Estil Apple Wallet / Digital Pass) */
         :root {
-            --wallet-bg: #1c1c1e;
-            --gold: #d4af37;
-            --label: #8e8e93;
+            --wallet-bg: #1c1c1e; /* Color fons fosc estil iOS */
+            --gold: #d4af37;      /* Daurat corporatiu */
+            --label: #8e8e93;     /* Color per a les etiquetes secundàries */
         }
 
         body {
@@ -53,6 +63,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             padding: 20px;
         }
 
+        /* Contenidor principal de la targeta */
         .wallet-pass {
             width: 400px;
             background-color: var(--wallet-bg);
@@ -60,9 +71,10 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             position: relative;
             overflow: hidden;
             box-shadow: 0 50px 100px rgba(0,0,0,0.9);
-            animation: slideUp 0.6s ease-out;
+            animation: slideUp 0.6s ease-out; /* Animació d'entrada suau */
         }
 
+        /* Capçalera de la targeta */
         .pass-header {
             padding: 25px 30px;
             background: linear-gradient(to bottom, #2c2c2e, var(--wallet-bg));
@@ -80,6 +92,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             text-transform: uppercase;
         }
 
+        /* Contingut central de l'entrada */
         .pass-content { padding: 35px 30px; }
 
         .event-title {
@@ -92,6 +105,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             line-height: 1.1;
         }
 
+        /* Organització de les dades en quadrícula (2 columnes) */
         .info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -113,6 +127,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             font-weight: 600;
         }
 
+        /* Àrea del codi QR */
         .qr-area {
             text-align: center;
             background: rgba(255,255,255,0.03);
@@ -134,6 +149,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             height: 220px;
         }
 
+        /* Detall estètic: retalls laterals tipus tiquet de paper */
         .wallet-pass::before, .wallet-pass::after {
             content: '';
             position: absolute;
@@ -154,6 +170,7 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             letter-spacing: 2px;
         }
 
+        /* Botó per tancar i tornar */
         .btn-close {
             margin-top: 40px;
             color: rgba(255,255,255,0.5);
@@ -164,15 +181,15 @@ $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300
             transition: all 0.3s;
         }
 
-        .btn-close:hover {
-            color: white;
-        }
+        .btn-close:hover { color: white; }
 
+        /* Definició de l'animació de lliscament */
         @keyframes slideUp {
             from { transform: translateY(80px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
+        /* Adaptació per a mòbils */
         @media (max-width: 420px) {
             .wallet-pass { width: 100%; }
             .event-title { font-size: 1.5rem; }

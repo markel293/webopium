@@ -191,7 +191,7 @@ if (isset($_GET['dia'])) {
                 <div class="formfilas">
                     <div class="cuadroform1">
                         <label for="numero_tarjeta">Número de la Tarjeta</label>
-                        <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="5489 8473 8568 2935" />
+                        <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="5489 8473 8568 2935" required />
                     </div>
                 </div>
 

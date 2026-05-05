@@ -1,7 +1,8 @@
 <?php
 /**
- * MEJORA DE SEGURIDAD: CONTROL DE ACCESO
- * Si un usuario ya está logueado, no tiene sentido que pueda registrar otra cuenta.
+ * MILLORA DE SEGURETAT: CONTROL D'ACCÉS
+ * Si un usuari ja ha iniciat sessió, no té sentit que pugui veure el formulari de registre.
+ * El servidor el redirigirà automàticament al seu perfil privat.
  */
 session_start();
 if (isset($_SESSION['logued']) && $_SESSION['logued'] === true) {
@@ -45,7 +46,8 @@ if (isset($_SESSION['logued']) && $_SESSION['logued'] === true) {
                   <span style="margin-right: 15px; font-size: 20px;">⚠️</span>
                   <span style="color: #ff6b6b; font-weight: bold; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4;">
                       <?php 
-                          // Usamos match o switch para evitar inyección de texto desde la URL
+                          // SEGURETAT: Fem servir un switch per traduir els codis d'error tècnics
+                          // a missatges entenedors per a l'usuari final, evitant XSS a la URL.
                           switch($_GET['error']) {
                               case "email_exists": echo "Este correo ya está registrado."; break;
                               case "invalid_email": echo "El formato del correo electrónico no es válido."; break;

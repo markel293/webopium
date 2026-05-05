@@ -1,8 +1,8 @@
 <?php
 /**
- * MEJORA DE SEGURIDAD: CONTROL DE ACCESO
- * Si el usuario ya está logueado, no debería ver el formulario de login.
- * Lo redirigimos a su cuenta directamente.
+ * MILLORA DE SEGURETAT: CONTROL D'ACCÉS D'USUARI LOGUEJAT
+ * Si l'usuari ja ha entrat abans (encara té la sessió oberta), no té sentit que torni a veure el login.
+ * El servidor el detecta i l'envia directament al seu compte.
  */
 session_start();
 if (isset($_SESSION['logued']) && $_SESSION['logued'] === true) {
@@ -10,7 +10,8 @@ if (isset($_SESSION['logued']) && $_SESSION['logued'] === true) {
     exit;
 }
 
-// Sanitización del error para evitar inyecciones de cabecera o scripts en la URL
+// NETEJA DE L'ERROR: Mirem si a l'adreça web diu "error".
+// Ho fem d'aquesta manera tan senzilla per evitar que algú intenti posar codi raro a la URL.
 $error = isset($_GET['error']) ? true : false;
 ?>
 <!DOCTYPE html>
@@ -53,6 +54,7 @@ $error = isset($_GET['error']) ? true : false;
               name="email"
               placeholder="bol@alsinarro.com"
               required
+              /* 'pattern': Un filtre que obliga a posar un format de correu real abans d'enviar */
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               title="Introduce un correo válido"
             />
