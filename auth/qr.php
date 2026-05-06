@@ -13,20 +13,22 @@ if (!isset($_SESSION['logued']) || $_SESSION['logued'] !== true) {
 // 2. RECOLLIDA DE DADES: Agafem la informació que ens arriba des de 'micuenta.php'.
 // Fem servir 'htmlspecialchars' per netejar el text i evitar que algú intenti injectar codi maliciós.
 $nom_session = $_SESSION['nom'];
+$id_entrada  = isset($_POST['id_entrada']) ? htmlspecialchars($_POST['id_entrada']) : '0';
 $club_name   = isset($_POST['club_name']) ? htmlspecialchars($_POST['club_name']) : 'OPIUM CLUB';
 $nom_event   = isset($_POST['nom_event']) ? htmlspecialchars($_POST['nom_event']) : 'Evento Especial';
 $data_event  = isset($_POST['data_event']) ? htmlspecialchars($_POST['data_event']) : 'Pendiente';
 $preu        = isset($_POST['preu']) ? htmlspecialchars($_POST['preu']) : '0.00';
 $nom_lot     = isset($_POST['nom_lot']) ? htmlspecialchars($_POST['nom_lot']) : 'Entrada General';
+$estat_entrada     = isset($_POST['estat_entrada']) ? htmlspecialchars($_POST['estat_entrada']) : 'Utilitzada';
 
 // 3. GENERACIÓ D'IDENTIFICADOR ÚNIC (Ticket ID):
 // Creem un codi de tiquet únic per a cada entrada barrejant les dades de l'usuari i l'esdeveniment.
 // Fem servir 'md5' per triturar la informació i treure un codi de 8 lletres/números difícil de falsificar.
-$ticket_id = "OP-" . strtoupper(substr(md5($nom_session . $nom_event . $data_event), 0, 8));
+$ticket_id = "OP-" . strtoupper(substr(md5($id_entrada . $nom_session . $nom_event . $data_event), 0, 8));
 
 // 4. CREACIÓ DEL CONTINGUT DEL QR:
 // Preparem el text que anirà dins del QR (ID del tiquet, club i esdeveniment).
-$qr_content = "TICKET:" . $ticket_id . "|CLUB:" . $club_name . "|EVENT:" . $nom_event;
+$qr_content = "TICKET: " . $ticket_id . "\nCLUB: " . $club_name . "\nEVENTO: " . $nom_event . "\nFECHA: " . $data_event . "\nLOTE: " . $nom_lot . "\nESTAT: " . $estat_entrada;
 
 // Cridem a un servei extern segur (QuickChart) perquè ens dibuixi la imatge del codi QR.
 $qr_url = "https://quickchart.io/qr?text=" . urlencode($qr_content) . "&size=300&dark=000000&light=ffffff&ecLevel=Q";

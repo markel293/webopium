@@ -1,27 +1,25 @@
 <?php
-// 1. Iniciem o reprenem la sessió de l'usuari (per saber qui és)
-session_start(); 
-// Connectem amb la base de dades mitjançant el fitxer de connexió
-include '../auth/conexion.php'; 
+session_start(); // Inicia o reprenem la sessió de l'usuari per saber qui és
+include '../auth/conexion.php'; // Connexió a la BD mitjançant la variable $conn
 
 /**
  * CAPA 1: CONTROL D'ACCÉS (AUTORITZACIÓ)
- * Verifiquem si l'usuari realment ha passat pel "login".
- * Si no té el permís de 'logued', el redirigim immediatament a la pàgina d'entrada.
+ * Verifiquem si l'usuari ha iniciat sessió. Si no és així, el redirigim al formulari de login.
+ * Això impedeix que qualsevol pugui escriure l'adreça de la pàgina i veure dades privades.
  */
 if (!isset($_SESSION['logued']) || $_SESSION['logued'] !== true) {
     header("Location: ../auth/forminiciosesion.php");
     exit;
 }
 
-// Recuperem el nom i el correu que el servidor recorda d'aquest usuari
+// Recuperem dades de la sessió per personalitzar la pàgina
 $nom_session = $_SESSION['nom'];
 $email_session = $_SESSION['email'];
 
 /**
- * CAPA 2: OBTENCIÓ DE L'IDENTIFICADOR (ID) DEL CLIENT
- * Fem una consulta segura a la base de dades per saber quin número d'ID té aquest correu.
- * Utilitzem una "Sentència Preparada" (?) per evitar que ningú pugui hackejar la consulta.
+ * CAPA 2: OBTENCIÓ DE L'ID DEL CLIENT
+ * Busquem l'identificador únic del client a la base de dades fent servir el seu correu.
+ * Utilitzem una consulta preparada (?) per evitar que algú pugui manipular la petició.
  */
 $stmt_c = $conn->prepare("SELECT id_client FROM client WHERE email = ?");
 $stmt_c->bind_param("s", $email_session);
@@ -32,7 +30,7 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
 ?>
 
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,9 +65,9 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
     <div class="divpresentacionvip"><h2>Entradas - Opium Barcelona</h2></div>
     <div class="cuadroentradaGRIS">
     <?php
-    // Busquem les entrades de l'usuari que pertanyin al local 1 (Barcelona)
+    // Busquem les entrades de Barcelona (local 1) que pertanyen a aquest usuari
 	// Tornem a fer servir la "Comanda Blindada" (?) per seguretat total.
-    $stmt_bcn = $conn->prepare("SELECT ec.data_compra, le.nom_lot, le.preu, e.nom_event, e.data_event 
+    $stmt_bcn = $conn->prepare("SELECT ec.id_entrada, ec.estat_entrada, le.nom_lot, le.preu, e.nom_event, e.data_event 
                                 FROM entrada_comprada ec 
                                 JOIN lot_entrada le ON ec.id_lot = le.id_lot 
                                 JOIN event e ON le.id_event = e.id_event 
@@ -83,14 +81,21 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
             echo '<div>';
 			// Mostrem les dades de l'entrada netejant el text amb 'htmlspecialchars' per seguretat.
             echo '<p>Nombre: ' . htmlspecialchars($nom_session) . '</p>';
+            echo '<p>Email: ' . htmlspecialchars($email_session) . '</p>';
             echo '<p>Evento: ' . htmlspecialchars($entrada['nom_event']) . '</p>';
+            echo '<p>Fecha del evento: ' . $entrada['data_event'] . '</p>';
             echo '<p>Lote: ' . htmlspecialchars($entrada['nom_lot']) . '</p>';
             echo '<p>Precio: ' . $entrada['preu'] . '€</p>';
             
-            // Formulari per demanar el QR de cada entrada de forma segura
+            // Botó per generar el QR de BCN
             echo '<form action="qr.php" method="post">';
+			echo '<input type="hidden" name="id_entrada" value="' . $entrada['id_entrada'] . '">';
             echo '<input type="hidden" name="club_name" value="OPIUM BARCELONA">';
             echo '<input type="hidden" name="nom_event" value="' . htmlspecialchars($entrada['nom_event']) . '">';
+            echo '<input type="hidden" name="data_event" value="' . $entrada['data_event'] . '">';
+            echo '<input type="hidden" name="preu" value="' . $entrada['preu'] . '">';
+            echo '<input type="hidden" name="nom_lot" value="' . htmlspecialchars($entrada['nom_lot']) . '">';
+			echo '<input type="hidden" name="estat_entrada" value="' . htmlspecialchars($entrada['estat_entrada']) . '">';
             echo '<button type="submit" class="botonentradasENT">QR</button>';
             echo '</form></div><br><hr><br>';
         }
@@ -101,9 +106,9 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
     <div class="divpresentacionvip"><h2>Entradas - Opium Madrid</h2></div>
     <div class="cuadroentradaGRIS">
     <?php
-    // Busquem les entrades de l'usuari que pertanyin al local 2 (Madrid)
+    // Busquem les entrades de Madrid (local 2) que pertanyen a aquest usuari
 	// Tornem a fer servir la "Comanda Blindada" (?) per seguretat total.
-    $stmt_mad = $conn->prepare("SELECT ec.data_compra, le.nom_lot, le.preu, e.nom_event, e.data_event 
+    $stmt_mad = $conn->prepare("SELECT ec.id_entrada, le.nom_lot, le.preu, e.nom_event, e.data_event 
                                 FROM entrada_comprada ec 
                                 JOIN lot_entrada le ON ec.id_lot = le.id_lot 
                                 JOIN event e ON le.id_event = e.id_event 
@@ -117,14 +122,21 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
             echo '<div>';
 			// Mostrem les dades de l'entrada netejant el text amb 'htmlspecialchars' per seguretat.
             echo '<p>Nombre: ' . htmlspecialchars($nom_session) . '</p>';
+            echo '<p>Email: ' . htmlspecialchars($email_session) . '</p>';
             echo '<p>Evento: ' . htmlspecialchars($entrada['nom_event']) . '</p>';
+            echo '<p>Fecha del evento: ' . $entrada['data_event'] . '</p>';
             echo '<p>Lote: ' . htmlspecialchars($entrada['nom_lot']) . '</p>';
             echo '<p>Precio: ' . $entrada['preu'] . '€</p>';
             
-            // Botó per generar el QR de Madrid
+			// Botó per generar el QR de Madrid
             echo '<form action="qr.php" method="post">';
+			echo '<input type="hidden" name="id_entrada" value="' . $entrada['id_entrada'] . '">';
             echo '<input type="hidden" name="club_name" value="OPIUM MADRID">';
             echo '<input type="hidden" name="nom_event" value="' . htmlspecialchars($entrada['nom_event']) . '">';
+            echo '<input type="hidden" name="data_event" value="' . $entrada['data_event'] . '">';
+            echo '<input type="hidden" name="preu" value="' . $entrada['preu'] . '">';
+            echo '<input type="hidden" name="nom_lot" value="' . htmlspecialchars($entrada['nom_lot']) . '">';
+			echo '<input type="hidden" name="estat_entrada" value="' . htmlspecialchars($entrada['estat_entrada']) . '">';
             echo '<button type="submit" class="botonentradasENT">QR</button>';
             echo '</form></div><br><hr><br>';
         }
@@ -135,7 +147,7 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
     <div class="divpresentacionvip"><h2>Reservas Restaurante - Marbella Beach Club</h2></div>
     <div class="cuadroentradaGRIS">
     <?php
-    // Busquem les reserves de taula fetes per aquest usuari
+    // Busquem les reserves de restaurant fetes per l'usuari a Marbella
     $stmt_res = $conn->prepare("SELECT c.nom, r.data_reserva, r.hora_reserva, r.num_persones, r.telefon 
                                 FROM reserves_restaurant r 
                                 JOIN client c ON r.id_client = c.id_client 
@@ -151,7 +163,7 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
             echo '<p>Fecha de la reserva: ' . $reserva['data_reserva'] . '</p>';
             echo '<p>Hora: ' . $reserva['hora_reserva'] . '</p>';
             echo '<p>Número de personas: ' . $reserva['num_persones'] . '</p>';
-            // SEGURETAT: Neteja del telèfon per evitar visualitzacions de caràcters perillosos
+			// SEGURETAT: Neteja del telèfon per evitar visualitzacions de caràcters perillosos
             echo '<p>Teléfono: ' . htmlspecialchars($reserva['telefon']) . '</p>';
             echo '</div><br><hr><br>';
         }
