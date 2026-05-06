@@ -2,7 +2,7 @@
 // Dades de configuració per trobar la BD
 $servidor = "bdopium"; 
 $usuari = "root"; 
-$contrasenya = ""; 
+$contrasenya = "MarkelPol"; 
 $basedades = "bdopium";
 
 // Intentem obrir el túnel de connexió
