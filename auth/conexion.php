@@ -1,6 +1,6 @@
 <?php
 // Dades de configuració per trobar la BD
-$servidor = "localhost"; 
+$servidor = "bdopium"; 
 $usuari = "root"; 
 $contrasenya = ""; 
 $basedades = "bdopium";
