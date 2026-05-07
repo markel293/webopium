@@ -83,8 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => "http://localhost/webopium/auth/exito.php?session_id={CHECKOUT_SESSION_ID}&id_client=$idcliente&id_lot=$idlot&dia=$dia",
-            'cancel_url' => "http://localhost/webopium/OpiumBarcelona/entradasbcn.php?dia=$dia",
+            'success_url' => "http://192.168.77.111/webopium/auth/exito.php?session_id={CHECKOUT_SESSION_ID}&id_client=$idcliente&id_lot=$idlot&dia=$dia",
+            'cancel_url' => "http://192.168.77.111/webopium/OpiumBarcelona/entradasbcn.php?dia=$dia",
         ]);
 
         header("HTTP/1.1 303 See Other");
