@@ -58,7 +58,7 @@ if (isset($_GET['dia'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Opium Barcelona ENTRADAS © 2025 Costa Este</title>
+    <title>Opium Madrid ENTRADAS © 2026 Costa Este</title>
     <link rel="stylesheet" href="../StyleMainPage.css" />
     <link rel="icon" href="../img/logogeneral.png" type="image/png" />
 </head>
@@ -75,14 +75,14 @@ if (isset($_GET['dia'])) {
 
     <!-- IMAGEN DE FONDO -->
     <div class="divfotofondoVIP">
-        <img class="fotofondoVIP" src="../img/fondocalendario.png" alt="Opium Barcelona CALENDARIO" />
+        <img class="fotofondoVIP" src="../img/headerclubmad.jpg" alt="Opium Madrid ENTRADAS" />
     </div>
 
     <!-- PRESENTACIÓN -->
     <div class="divpresentacionvip">
         <h1>ENTRADAS</h1>
         <p>Haz clic en un número del calendario para ver el evento de ese día</p>
-        <p>Opium Barcelona © 2025 Costa Este</p>
+        <p>Opium Madrid © 2026 Costa Este</p>
     </div>
 
     <!-- SECCIÓN DEL CALENDARIO -->
@@ -126,7 +126,7 @@ if (isset($_GET['dia'])) {
 
                 <p class="textoeventoENT"><?php echo $evento['nom_event']; ?></p>
                 <p class="textoeventoENT"><?php echo $evento['hora_inici']; ?></p>
-                <a href="../OpiumBarcelona/reservavipbcn.php" class="botonentradasENT">RESERVA VIP</a>
+                <a href="../OpiumMadrid/infovipmad.php" class="botonentradasENT">RESERVA VIP</a>
             </div>
         </div>
 
@@ -199,7 +199,7 @@ if (isset($_GET['dia'])) {
     <!-- FOOTER -->
     <?php $colorfooter = 'footer-main'; ?>
     <?php include '../footer.php'; ?>
-    <p class="textoh5MP">Opium Barcelona © 2025 Costa Este – Todos los derechos reservados</p>
+    <p class="textoh5MP">Opium Madrid © 2026 Costa Este – Todos los derechos reservados</p>
     <br>
 
 </body>
