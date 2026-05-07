@@ -108,7 +108,7 @@ $id_client = ($res_c->num_rows > 0) ? $res_c->fetch_assoc()['id_client'] : 0;
     <?php
     // Busquem les entrades de Madrid (local 2) que pertanyen a aquest usuari
 	// Tornem a fer servir la "Comanda Blindada" (?) per seguretat total.
-    $stmt_mad = $conn->prepare("SELECT ec.id_entrada, le.nom_lot, le.preu, e.nom_event, e.data_event 
+    $stmt_mad = $conn->prepare("SELECT ec.id_entrada, ec.estat_entrada, le.nom_lot, le.preu, e.nom_event, e.data_event 
                                 FROM entrada_comprada ec 
                                 JOIN lot_entrada le ON ec.id_lot = le.id_lot 
                                 JOIN event e ON le.id_event = e.id_event 
