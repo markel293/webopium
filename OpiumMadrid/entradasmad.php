@@ -152,7 +152,7 @@ if (isset($_GET['dia'])) {
     <!-- FORMULARIO DE COMPRA -->
     <?php if (!empty($entradasDisponibles)): ?>
         <div class="divformregistro">
-            <form class="formregistro" action="../auth/procesocomprabcn.php" method="POST" id="formulario">
+            <form class="formregistro" action="../auth/procesocompramad.php" method="POST" id="formulario">
                 <!-- Día seleccionado (para procesar o mostrar errores) -->
                 <input type="hidden" name="dia" value="<?php echo $_GET['dia']; ?>">
 
@@ -176,38 +176,6 @@ if (isset($_GET['dia'])) {
                     <div class="cuadroform1">
                         <label for="email">Email de la persona que asistirá con la entrada</label>
                         <input type="email" id="email" name="email" placeholder="jiunfeng@gmail.com" required pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" title="Introduce un correo válido" />
-                    </div>
-                </div>
-
-                <!-- Titular tarjeta -->
-                <div class="formfilas">
-                    <div class="cuadroform1">
-                        <label for="titular_tarjeta">Titular de la Tarjeta</label>
-                        <input type="text" id="titular_tarjeta" name="titular_tarjeta" placeholder="Carlos Manzanera Figueras" required />
-                    </div>
-                </div>
-
-                <!-- Número de tarjeta -->
-                <div class="formfilas">
-                    <div class="cuadroform1">
-                        <label for="numero_tarjeta">Número de la Tarjeta</label>
-                        <input type="text" id="numero_tarjeta" name="numero_tarjeta" placeholder="5489 8473 8568 2935" required />
-                    </div>
-                </div>
-
-                <!-- Fecha de expiración -->
-                <div class="formfilas">
-                    <div class="cuadroform1">
-                        <label for="fecha_expiracion">Fecha de Expiración</label>
-                        <input type="date" id="fecha_expiracion" name="fecha_expiracion" required />
-                    </div>
-                </div>
-
-                <!-- Código de seguridad -->
-                <div class="formfilas">
-                    <div class="cuadroform1">
-                        <label for="codigo_seguridad">Código de Seguridad</label>
-                        <input type="text" id="codigo_seguridad" name="codigo_seguridad" placeholder="CVV" required pattern="\d{3,4}" title="Introduce el código CVV de 3 o 4 dígitos" />
                     </div>
                 </div>
 
