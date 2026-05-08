@@ -49,7 +49,7 @@ try {
             'lifetime' => 0,
             'path' => '/',
             'domain' => '',
-            'secure' => true,      // S'ha de canviar a 'false' si proves en localhost sense SSL
+            'secure' => false,      // S'ha de canviar a 'false' si proves en localhost sense SSL
             'httponly' => true,    // Protegeix el token de robatoris per JavaScript
             'samesite' => 'Strict'
         ]);

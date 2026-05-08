@@ -10,7 +10,7 @@ session_set_cookie_params([
     'lifetime' => 0,            // La sessió s'esborra en tancar el navegador
     'path' => '/',
     'domain' => '',             // Dominis que poden llegir la cookie (Agafa el per defecte si '')
-    'secure' => true,           // Només s'envia per HTTPS (Activa-ho en producció)
+    'secure' => false,           // Només s'envia per HTTPS (Activa-ho en producció)
     'httponly' => true,         // Protecció contra XSS: la cookie és invisible per a JavaScript
     'samesite' => 'Strict'      // Protecció contra CSRF: evita peticions des d'altres llocs
 ]);
