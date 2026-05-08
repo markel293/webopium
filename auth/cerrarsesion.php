@@ -1,25 +1,22 @@
 <?php
 /**
- * MILLORA DE SEGURETAT: TANCAMENT DE SESSIÓ TOTAL
- * No només buidem les dades al servidor, sinó que esborrem qualsevol rastre a l'ordinador de l'usuari.
+ * MILLORA DE SEGURETAT: TANCAMENT DE SESSIÓ INTEGRAL
+ * No només buidem les dades al servidor, sinó que eliminem qualsevol rastre al client
+ * per complir amb els protocols moderns de gestió d'identitat.
  */
 
-// Iniciem la sessió per poder identificar quina és la que volem tancar
 session_start();
 
-// 1. BUIDAT DE DADES: Borrem totes les variables del calaix de la sessió.
-// És com si buidéssim una motxilla i la deixéssim totalment buida.
+// 1. Elimina totes les variables de sessió de l'array $_SESSION
 $_SESSION = array();
 
-// 2. ELIMINAR LA "CLAU" DEL NAVEGADOR (Cookie):
-// Si el navegador fa servir cookies (que és el més normal), hem de destruir la "clau" 
-// que guarda l'usuari. Si no la borrem, algú podria intentar fer-la servir més tard.
+// 2. IMPORTANT: Per destruir la sessió completament, cal esborrar la cookie de sessió
+// al navegador. Si no es fa, l'ID de sessió (el "carret") podria quedar actiu i ser vulnerable.
 if (ini_get("session.use_cookies")) {
-    // Agafem la configuració actual de la clau
     $params = session_get_cookie_params();
     
-    // Ordenem al navegador que la clau caduqui immediatament.
-    // Li posem una data de fa 42.000 segons (una data passada) perquè el navegador l'esborri al moment.
+    // Enviem una cookie amb el mateix nom però amb data de caducitat en el passat.
+    // És vital que els paràmetres 'secure' i 'httponly' coincideixin amb els de iniciosesion.php.
     setcookie(
         session_name(), 
         '', 
@@ -31,17 +28,15 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// 3. DESTRUCCIÓ FINAL: matem oficialment la sessió al servidor.
-// Ja no existeix cap connexió entre aquest usuari i el nostre sistema.
+// 3. Destrueix la informació de la sessió al servidor
 session_destroy();
 
 /**
  * CAPA EXTRA: Redirecció neta.
- * Enviem l'usuari a la pàgina principal. Afegim un avís a l'adreça (?logout=1) 
- * perquè la web sàpiga que hem sortit correctament.
+ * Tornem a la pàgina principal amb un paràmetre per confirmar que el tancament ha estat correcte.
  */
 header("Location: ../OpiumMainPage/OpiumMainPage.php?logout=1");
 
-// 4. Finalitza el procés de forma segura per no gastar més recursos
+// 4. Finalitza l'execució del script de forma segura
 exit;
 ?>

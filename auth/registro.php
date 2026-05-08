@@ -1,26 +1,28 @@
 <?php
+/**
+ * SISTEMA DE REGISTRE SEGUR - OPIUM
+ * Implementa hashing de contrasenyes, sentències preparades i gestió de cookies segures
+ * per complir amb els estàndards moderns de protecció de dades.
+ */
 
-// 1. CONTROL DE FALLADES: Configurem el sistema perquè ens avisi si la base de dades comet algun error.
-// Això permet que el bloc "catch" (el nostre pla d'emergència) s'activi si alguna cosa va malament.
+// 1. Configuració de Seguretat: Forcem excepcions en MySQLI per capturar errors d'integritat (com duplicats)
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 include 'conexion.php';
 
 try {
-    // 2. DESINFECTAR DADES: Netegem tot el que l'usuari ha escrit al formulari.
-    // L'ordre 'htmlspecialchars' evita que si algú escriu codi maliciós (com un virus), aquest s'executi a la web.
+    // 2. Sanejaments: Evitem atacs XSS (Cross-Site Scripting) netejant etiquetes HTML dels inputs
     $nom      = htmlspecialchars(trim($_POST['nom']));
     $cognom   = htmlspecialchars(trim($_POST['cognom']));
     
-    // Filtrem el correu per assegurar-nos que no té símbols prohibits.
+    // Sanejament específic per a l'email
     $email    = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     
-    // En el telèfon, només deixem números i el símbol '+', la resta ho esborrem.
+    // Filtratge de caràcters no numèrics al telèfon
     $telefon  = preg_replace('/[^0-9+]/', '', $_POST['telefon']); 
     $pass     = $_POST['pass_hash'];
 
-    // 3. SEGONA REVISIÓ: Encara que el formulari ja ho miri, el servidor torna a comprovar-ho tot.
-    // Verifiquem que el correu sigui real i que la contrasenya tingui almenys 6 lletres o números.
+    // 3. Validació de Regles de Negoci al Servidor (Segona barrera després de l'HTML5)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: formregistro.php?error=invalid_email");
         exit;
@@ -31,44 +33,52 @@ try {
         exit;
     }
 
-    // 4. TRITURADORA DE CLAUS (Hashing): No guardem la clau real ("1234").
-    // La convertim en un codi secret i irreversible. Si un hacker robés la llista, no sabria quina és la clau.
+    // 4. Hashing: Apliquem Algoritme de Hashing Robust (Bcrypt per defecte)
+    // El 'salt' es gestiona automàticament, protegint contra atacs de Rainbow Tables.
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
 
-    // 5. COMANDA BLINDADA (Sentència Preparada): 
-    // Preparem el lloc on guardarem les dades usant interrogants "?". 
-    // Això fa que el servidor sàpiga separar les ordres del nom de l'usuari, evitant l'atac "SQL Injection".
+    // 5. Sentència Preparada (Prepared Statements): 
+    // Blindatge total contra SQL Injection. Les dades viatgen separades de la lògica SQL.
     $stmt = $conn->prepare("INSERT INTO client (nom, cognom, email, pass, telefon, data_registre) VALUES (?, ?, ?, ?, ?, NOW())");
     $stmt->bind_param("sssss", $nom, $cognom, $email, $pass_cifrada, $telefon);
 
-    // Si la comanda s'executa correctament...
     if ($stmt->execute()) {
-        // 6. CREAR EL CARNET D'IDENTITAT: Iniciem la sessió i li donem un número nou i segur a l'usuari.
+        
+        // 6. GESTIÓ DE SESSIÓ SEGURA TRAS REGISTRE (Adaptat a la proposta tècnica)
+        session_set_cookie_params([
+            'lifetime' => 0,
+            'path' => '/',
+            'domain' => '',
+            'secure' => true,      // S'ha de canviar a 'false' si proves en localhost sense SSL
+            'httponly' => true,    // Protegeix el token de robatoris per JavaScript
+            'samesite' => 'Strict'
+        ]);
+
         session_start();
-        session_regenerate_id(true); // Això fa que la clau de sessió sigui única i difícil de robar.
+        session_regenerate_id(true); // Prevé el Session Fixation (Secrest de sessió)
 
         $_SESSION['logued'] = true;
         $_SESSION['nom']    = $nom;
         $_SESSION['email']  = $email;
+        $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT']; // Huella digital del navegador
 
-        // Ja està registrat! L'enviem a la pàgina principal.
         header("Location: ../OpiumMainPage/OpiumMainPage.php");
         exit;
     }
 
 } catch (mysqli_sql_exception $e) {
-    // 7. GESTIÓ D'ERRORS SENSE DONAR PISTES: Si hi ha un error, no ensenyem dades tècniques.
+    // 7. Gestió d'Errors sense Fuga d'Informació (Information Leakage)
     if ($e->getCode() === 1062) { 
-        // Si el codi és 1062, vol dir que el correu ja està registrat a la nostra base de dades.
+        // Entrada duplicada: Informem l'usuari de forma controlada
         header("Location: formregistro.php?error=email_exists");
     } else {
-        // Si és un altre error, el guardem en un fitxer secret del servidor i donem un missatge genèric.
+        // Altres errors: Es registren al log del servidor, no es mostren al client
         error_log("Fallo crítico DB en registro: " . $e->getMessage());
         header("Location: formregistro.php?error=system");
     }
     exit;
 } finally {
-    // NETEJA FINAL: Tanquem la connexió amb la base de dades per no gastar recursos del servidor.
+    // Tanquem recursos per evitar fugues de memòria al servidor
     if (isset($stmt)) { $stmt->close(); }
     if (isset($conn)) { $conn->close(); }
 }
