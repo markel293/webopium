@@ -32,19 +32,23 @@
   <!-- INFO Y CONTACTO -->
   <div class="seccionesfooter">
     <h3 class="titulosfooter">INFO Y CONTACTO</h3>
-    <a href="https://www.notion.so/Manual-de-Usuario-1f755727587a80669519d3cad7ca1199?pvs=4" target="_blank" rel="noopener noreferrer">
+    <a href="https://www.notion.so/Manual-de-Usuario-1f755727587a80669519d3cad7ca1199?pvs=4" target="_blank" rel="noopener noreferrer" style="color: inherit; display: block; margin: 16px 0;">
       Manual de Usuario
     </a>
     <p>Código de Vestimenta</p>
     <p>FAQS</p>
     <p>Trabaja Con Nosotros</p>
   </div>
-
-  <!-- LEGAL -->
+	
+  <!-- LEGAL -->	
   <div class="seccionesfooter">
     <h3 class="titulosfooter">LEGAL</h3>
-    <p>Política de Privacidad</p>
-    <p>Política de Cookies</p>
+	<a href="../Política De Privacidad - Opium © 2026 Costa Este.pdf" download style="color: inherit; display: block; margin: 16px 0;">
+		Política de Privacidad
+	</a>
+	<a href="../Política De Cookies - Opium © 2026 Costa Este.pdf" download style="color: inherit; display: block; margin: 16px 0;">
+		Política de Cookies
+	</a>
   </div>
 
 </div>
